@@ -5,7 +5,8 @@ import { Task } from './task.model';
   providedIn: 'root'
 })
 export class TasksService {
-  task =signal<Task[]>([])
+  private task =signal<Task[]>([])
+  alltask = this.task.asReadonly();
   
   addTask(taskData:{title : string, description : string}){
     const newTask : Task ={
@@ -14,5 +15,7 @@ export class TasksService {
       status: 'OPEN'
     }
     this.task.update(oldtask => [...oldtask, newTask])
+    console.log("task ", this.task);
+    
   }
 }
